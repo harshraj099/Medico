@@ -11,7 +11,7 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const backendUrl = import.meta.env.VITE_BACKEND_URL
+  const backendUrl = "https://medico-backend-6f2s.onrender.com"
 
   const { setDToken } = useContext(DoctorContext)
   const { setAToken } = useContext(AdminContext)
