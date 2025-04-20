@@ -7,7 +7,7 @@ import { assets } from '../assets/assets'
 
 const MyAppointments = () => {
 
-    const { backendUrl, token } = useContext(AppContext)
+    const { backendUrl, token ,getDoctosData} = useContext(AppContext)
     const navigate = useNavigate()
 
     const [appointments, setAppointments] = useState([])
@@ -44,6 +44,7 @@ const MyAppointments = () => {
             if (data.success) {
                 toast.success(data.message)
                 getUserAppointments()
+                getDoctosData()
             } else {
                 toast.error(data.message)
             }
