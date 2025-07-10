@@ -70,8 +70,28 @@ const MyAppointments = () => {
             toast.error(error.message)
         }
     }
+    /* 
+    if (data.success) {
+    const { session_url } = data;
+    window.location.replace(session_url);
+}
+✅ if (data.success)
+your backend sends a JSON response like:
+{
+  "success": true,
+  "session_url": "https://checkout.stripe.com/..."
+}
+✅ const { session_url } = data;
+✅ window.location.replace(session_url);
+This navigates the user to the Stripe checkout page.
 
+It does not keep the current page in history, so the user can't click the back button to return.
+used for security-sensitive redirects like payment pages.
 
+🔁 Why not use window.location.href = session_url;?
+That would also redirect, but it adds the current page to the history stack.
+replace() is preferable as no going "back" to retry payments and cause duplication or errors.
+     */
 
     useEffect(() => {
         if (token) {

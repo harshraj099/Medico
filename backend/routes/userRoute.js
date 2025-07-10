@@ -9,6 +9,7 @@ userRouter.post("/login", loginUser)
 
 userRouter.get("/get-profile", authUser, getProfile)
 userRouter.post("/update-profile", upload.single('image'), authUser, updateProfile)
+// upload.single('image') grabs the image field, saves the file to your server locally.
 userRouter.post("/book-appointment", authUser, bookAppointment)
 userRouter.get("/appointments", authUser, listAppointment)
 userRouter.post("/cancel-appointment", authUser, cancelAppointment)

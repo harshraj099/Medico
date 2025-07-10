@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 const Doctors = () => {
 
-  const { speciality } = useParams()
+  const { speciality } = useParams()  // to get the speciality from the URL
 
   const [filterDoc, setFilterDoc] = useState([])
   const [showFilter, setShowFilter] = useState(false)

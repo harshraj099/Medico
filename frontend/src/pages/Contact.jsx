@@ -15,7 +15,7 @@ const Contact = () => {
           <p className=' font-semibold text-lg text-gray-600'>OUR OFFICE</p>
           <p className=' text-gray-500'>1204 Phoenix Towers <br /> Suite 350, Mumbai, India</p>
           <p className=' text-gray-500'>Tel: (415) 555-0132 <br /> Email: harsh@gmail.com</p>
-          <p className=' font-semibold text-lg text-gray-600'>CAREERS AT Prescripto</p>
+          <p className=' font-semibold text-lg text-gray-600'>CAREERS AT Medico</p>
           <p className=' text-gray-500'>Learn more about our teams and job openings.</p>
           <button className='border border-black px-8 py-4 text-sm hover:bg-black hover:text-white transition-all duration-500'>Explore Jobs</button>
         </div>

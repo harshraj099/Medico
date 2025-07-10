@@ -15,7 +15,6 @@ const registerUser = async (req, res) => {
 
     try {
         const { name, email, password } = req.body;
-
         // checking for all data to register user
         if (!name || !email || !password) {
             return res.json({ success: false, message: 'Missing Details' })
@@ -34,6 +33,13 @@ const registerUser = async (req, res) => {
         // hashing user password
         const salt = await bcrypt.genSalt(10); // the more no. round the more time it will take
         const hashedPassword = await bcrypt.hash(password, salt)
+
+        /*
+        bcrypt.genSalt(10)	Generates salt with cost 10  i.e how many times
+         the hashing algorithm runs: cost = 10 ⇒ 2¹⁰ ≈ 1,024 iterations.
+         bcrypt.hash(password, salt) Combines password + salt, loops 2¹⁰ times,
+          and produces a 60-character hash string
+        */
 
         const userData = {
             name,
@@ -85,7 +91,7 @@ const getProfile = async (req, res) => {
     try {
         const { userId } = req.body
         const userData = await userModel.findById(userId).select('-password')
-
+        // The - password means exclude password
         res.json({ success: true, userData })
 
     } catch (error) {
@@ -107,13 +113,25 @@ const updateProfile = async (req, res) => {
         }
 
         await userModel.findByIdAndUpdate(userId, { name, phone, address: JSON.parse(address), dob, gender })
-
+        // JSON.parse(address) is used to convert the address string into an object
+// "{\"street\":\"MG Road\",\"city\":\"Bangalore\"}"
+// Into this:
+// js
+// Copy
+// Edit
+// {
+//   street: "MG Road",
+//   city: "Bangalore"
+// }
         if (imageFile) {
 
             // upload image to cloudinary
             const imageUpload = await cloudinary.uploader.upload(imageFile.path, { resource_type: "image" })
             const imageURL = imageUpload.secure_url
-
+            // cloudinary.uploader.upload() 
+            // cloudinary -> connects to cloudinary
+            // uploader -> gives you access to upload-related functions like upload()
+            // upload() -> uploads the file to cloudinary
             await userModel.findByIdAndUpdate(userId, { image: imageURL })
         }
 
@@ -155,7 +173,15 @@ const bookAppointment = async (req, res) => {
         const userData = await userModel.findById(userId).select("-password")
 
         delete docData.slots_booked
-
+        /*
+        why delete docData.slots_booked?
+        To avoid sending the full booking calendar to the frontend, we only need the doctor's details.
+        const appointmentData = {
+  ...
+  docData, // contains doctor details (without the full booking calendar)
+  ...
+}
+        */
         const appointmentData = {
             userId,
             docId,
@@ -218,7 +244,6 @@ const cancelAppointment = async (req, res) => {
 // API to get user appointments for frontend my-appointments page
 const listAppointment = async (req, res) => {
     try {
-
         const { userId } = req.body
         const appointments = await appointmentModel.find({ userId })
 
@@ -262,9 +287,10 @@ const paymentStripe = async (req, res) => {
             line_items: line_items,
             mode: 'payment',
         })
-
+        // {origin} is the URL of the frontend where the user will be redirected after payment
         res.json({ success: true, session_url: session.url });
-
+        // session.url is the checkout page URL that Stripe gives you.
+        // actually in the session object there is a url property that contains the URL of the checkout page. which howver is not included in n here but it is there
     } catch (error) {
         console.log(error)
         res.json({ success: false, message: error.message })

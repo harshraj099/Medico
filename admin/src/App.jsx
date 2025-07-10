@@ -20,6 +20,14 @@ const App = () => {
   const { dToken } = useContext(DoctorContext)
   const { aToken } = useContext(AdminContext)
 
+  /* 
+  <ToastContainer /> is a component from the react-toastify library (or similar toast notification libraries).
+Purpose
+It acts as a placeholder in your React app where toast notifications (pop-up messages) will appear.
+You only need to include <ToastContainer /> once, usually near the root of your app.
+How it works
+When you call toast("Message") in your code, the message will be displayed inside the <ToastContainer />.
+  */
   return dToken || aToken ? (
     <div className='bg-[#F8F9FD]'>
       <ToastContainer />

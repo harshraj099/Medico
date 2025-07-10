@@ -13,9 +13,9 @@ const Appointment = () => {
     const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 
     const [docInfo, setDocInfo] = useState(false)
-    const [docSlots, setDocSlots] = useState([])
-    const [slotIndex, setSlotIndex] = useState(0)
-    const [slotTime, setSlotTime] = useState('')
+    const [docSlots, setDocSlots] = useState([])  // actually time slots 
+    const [slotIndex, setSlotIndex] = useState(0)  // index of the selected date
+    const [slotTime, setSlotTime] = useState('')  
 
     const navigate = useNavigate()
 
@@ -166,17 +166,19 @@ const Appointment = () => {
                     {docSlots.length && docSlots.map((item, index) => (
                         <div onClick={() => setSlotIndex(index)} key={index} className={`text-center py-6 min-w-16 rounded-full cursor-pointer ${slotIndex === index ? 'bg-primary text-white' : 'border border-[#DDDDDD]'}`}>
                             <p>{item[0] && daysOfWeek[item[0].datetime.getDay()]}</p>
-                            <p>{item[0] && item[0].datetime.getDate()}</p>
+                            <p>{item[0] && item[0].datetime.getDate()}</p>                  
                         </div>
                     ))}
                 </div>
-
+                     {/* daysOfWeek[item[0].datetime.getDay()] → "Mon", "Tue", etc.
+                            item[0].datetime.getDate() → date number (e.g., 20). */}
                 <div className='flex items-center gap-3 w-full overflow-x-scroll mt-4'>
                     {docSlots.length && docSlots[slotIndex].map((item, index) => (
                         <p onClick={() => setSlotTime(item.time)} key={index} className={`text-sm font-light  flex-shrink-0 px-5 py-2 rounded-full cursor-pointer ${item.time === slotTime ? 'bg-primary text-white' : 'text-[#949494] border border-[#B4B4B4]'}`}>{item.time.toLowerCase()}</p>
                     ))}
                 </div>
-
+                    {/* Once a day is selected (via slotIndex), this block shows the available time slots for that day.
+                    On click: setSlotTime(item.time) saves the selected time. */}
                 <button onClick={bookAppointment} className='bg-primary text-white text-sm font-light px-20 py-3 rounded-full my-6'>Book an appointment</button>
             </div>
 

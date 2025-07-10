@@ -17,6 +17,15 @@ connectCloudinary()
 app.use(express.json())
 app.use(cors())
 
+/*
+app.use(express.json())
+This line tells Express to automatically parse incoming JSON data from 
+the body of HTTP requests and make it available in req.body.
+
+CORS (Cross-Origin Resource Sharing). It allows your server to accept
+ requests from other origins (domains or ports).
+*/ 
+
 // api endpoints
 app.use("/api/user", userRouter)
 app.use("/api/admin", adminRouter)

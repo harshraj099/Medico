@@ -11,6 +11,17 @@ const Verify = () => {
     const success = searchParams.get("success")
     const appointmentId = searchParams.get("appointmentId")
 
+//  from the above lines You are extracting the values of 
+// success and appointmentId from the URL's query string.
+
+// Example:
+// If your URL is:
+
+// success will be "true"
+// appointmentId will be "123"
+// Summary:
+// The URL must contain these query parameters for them to be extracted using useSearchParams().
+
     const { backendUrl, token } = useContext(AppContext)
 
     const navigate = useNavigate()
