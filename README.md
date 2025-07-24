@@ -1,4 +1,4 @@
-admin page
+Admin page
 
 https://medico-admin-one.vercel.app
 
